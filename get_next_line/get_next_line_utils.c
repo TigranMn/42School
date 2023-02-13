@@ -6,7 +6,7 @@
 /*   By: tmnatsak <tmnatsak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 19:41:55 by tmnatsak          #+#    #+#             */
-/*   Updated: 2023/02/10 21:33:51 by tmnatsak         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:24:03 by tmnatsak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*ft_strdup(const char *s1)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if(!s)
+		return (NULL);
 	while (*s != '\0')
 	{
 		if (*s == (char)c)

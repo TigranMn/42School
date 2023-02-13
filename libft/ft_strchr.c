@@ -6,7 +6,7 @@
 /*   By: tmnatsak <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:22:51 by tmnatsak          #+#    #+#             */
-/*   Updated: 2023/01/19 21:22:52 by tmnatsak         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:57:19 by tmnatsak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (!s)
+		return (NULL);
 	while (*s != '\0')
 	{
 		if (*s == (char)c)

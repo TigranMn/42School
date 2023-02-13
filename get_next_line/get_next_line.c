@@ -6,11 +6,38 @@
 /*   By: tmnatsak <tmnatsak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 20:35:20 by tmnatsak          #+#    #+#             */
-/*   Updated: 2023/02/10 22:21:51 by tmnatsak         ###   ########.fr       */
+/*   Updated: 2023/02/13 21:33:35 by tmnatsak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
+char	*after(char *buffer)
+{
+	char	*afnl;
+	size_t	i;
+	size_t	c;
+
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (!buffer[i])
+	{
+		free(buffer);
+		return (NULL);
+	}
+	afnl = (char *)malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
+	if (!afnl)
+		return (NULL);
+	c = 0;
+	i++;
+	while (buffer[i])
+		afnl[c++] = buffer[i++];
+	afnl[c] = '\0';
+	free(buffer);
+	return (afnl);
+}
 
 char	*reset_buff(char *buffer, char *line)
 {
@@ -23,7 +50,7 @@ char	*reset_buff(char *buffer, char *line)
 		return (NULL);
 	line_len = ft_strlen(line);
 	buffer_len = ft_strlen(buffer);
-	if (!buffer[line_len])
+	if (!buffer[0])
 	{
 		free(buffer);
 		return (NULL);
@@ -32,6 +59,7 @@ char	*reset_buff(char *buffer, char *line)
 	if (!resetted)
 		return (NULL);
 	j = 0;
+	line_len++;
 	while (buffer[line_len])
 		resetted[j++] = buffer[line_len++];
 	resetted[j] = '\0';
@@ -90,21 +118,28 @@ char *ft_read(int fd, char *buffer)
 			buffer = ft_strjoin(buffer, buff);
 			free(to_free);
 		}
-	}	
+	}
 	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
+	// static int when = 0;
 	static char *buffer;
 	char		*line;
 	
+	// when++;
 	if(BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		if(buffer)
+			free(buffer);
 		return (NULL);
+	}
+	// if(when == 7)
+	// 	while(1){}
 	buffer = ft_read(fd, buffer);
 	line = ft_line(buffer);
-	printf("%s", line);
-	buffer = reset_buff(buffer, line);
+	buffer = after(buffer);
 	return (line);
 }
 
@@ -115,5 +150,15 @@ char	*get_next_line(int fd)
 // 	get_next_line(fd);
 // 	get_next_line(fd);
 // 	get_next_line(fd);
-// 	while(1);
+// 	get_next_line(fd);
+
+// 	get_next_line(fd);
+// 	get_next_line(fd);
+// 	get_next_line(fd);
+
+	
+
+
+
+// 	// printf("%s\n",);
 // }
