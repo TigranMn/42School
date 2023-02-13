@@ -35,7 +35,7 @@ char	*reset_buff(char *buffer, char *line)
 	while (buffer[line_len])
 		resetted[j++] = buffer[line_len++];
 	resetted[j] = '\0';
-	//free(buffer);
+	free(buffer);
 	return (resetted);
 }
 
@@ -69,6 +69,7 @@ char *ft_read(int fd, char *buffer)
 {
 	char	buff[BUFFER_SIZE + 1];
 	int		read_bytes;
+	char	*to_free;
 
 	read_bytes = 1;
 	while (!ft_strchr(buff, '\n') && read_bytes > 0)
@@ -84,7 +85,11 @@ char *ft_read(int fd, char *buffer)
 		if (!buffer)
 			buffer = ft_strdup(buff);
 		else
+		{
+			to_free = buffer;
 			buffer = ft_strjoin(buffer, buff);
+			free(to_free);
+		}
 	}	
 	return (buffer);
 }
@@ -94,19 +99,21 @@ char	*get_next_line(int fd)
 	static char *buffer;
 	char		*line;
 	
-	if(!fd || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if(BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	buffer = ft_read(fd, buffer);
 	line = ft_line(buffer);
+	printf("%s", line);
 	buffer = reset_buff(buffer, line);
 	return (line);
 }
 
-//int	main()
-//{
-//int fd = 	open("test", O_RDWR);
-//	get_next_line(fd);
-//	get_next_line(fd);
-//	get_next_line(fd);
-//	get_next_line(fd);
-//}
+// int	main()
+// {
+// int fd = 	open("test", O_RDWR);
+// 	get_next_line(fd);
+// 	get_next_line(fd);
+// 	get_next_line(fd);
+// 	get_next_line(fd);
+// 	while(1);
+// }

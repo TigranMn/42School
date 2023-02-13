@@ -76,10 +76,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	srclen;
-	size_t	i;
 	size_t	dstlen;
 
-	i = 0;
 	srclen = ft_strlen(src);
 	if (!dst && dstsize == 0)
 		return (srclen);
