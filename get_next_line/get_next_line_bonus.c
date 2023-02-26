@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmnatsak <tmnatsak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 20:35:20 by tmnatsak          #+#    #+#             */
-/*   Updated: 2023/02/19 13:46:43 by tmnatsak         ###   ########.fr       */
+/*   Created: 2023/02/16 20:14:03 by tmnatsak          #+#    #+#             */
+/*   Updated: 2023/02/19 13:46:55 by tmnatsak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -83,6 +83,7 @@ char	*ft_read(int fd, char *buffer)
 	char	buff[BUFFER_SIZE + 1];
 	int		read_bytes;
 
+	*buff = 0;
 	read_bytes = 1;
 	while (!ft_strchr(buff, '\n') && read_bytes > 0)
 	{
@@ -106,15 +107,15 @@ char	*ft_read(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[10000];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	buffer = ft_read(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_read(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	line = ft_line(buffer);
-	buffer = reset_buffer(buffer);
+	line = ft_line(buffer[fd]);
+	buffer[fd] = reset_buffer(buffer[fd]);
 	return (line);
 }

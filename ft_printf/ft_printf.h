@@ -6,7 +6,7 @@
 /*   By: tmnatsak <tmnatsak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:01:36 by tmnatsak          #+#    #+#             */
-/*   Updated: 2023/02/05 15:16:36 by tmnatsak         ###   ########.fr       */
+/*   Updated: 2023/02/14 17:17:38 by tmnatsak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,4 @@ int	ft_print_unbr(unsigned int n, int fd);
 int	ft_print_hex(unsigned long long num, const char format, int fd);
 int	ft_print_address(unsigned long long num, int fd);
 
-#endif~
+#endif
